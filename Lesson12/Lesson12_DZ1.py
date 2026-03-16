@@ -6,7 +6,7 @@ class Soda:
     def __init__(self, flavor: str):
         self.flavor = flavor
 
-    def show_my_drink(self) -> str:
+    def show_my_drink(self) -> None:
         print(f"{"Газировка и " + self.flavor if self.flavor else "Обычная газировка"}")
 
 Soda("").show_my_drink()  # Обычная газировка
