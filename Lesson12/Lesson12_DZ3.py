@@ -100,7 +100,7 @@ class Store:
                 if good["quantity"] >= quantity:
                     good["quantity"] -= quantity
                 else:
-                    raise ValueError(f"Единиц товара не достаточно для продажи")
+                    raise ValueError("Единиц товара не достаточно для продажи")
 
     def get_inventory(self) -> list[dict]:
         # вернуть список всех товаров и их количество
@@ -399,9 +399,7 @@ class Car:
         lst = data.split('-')
         if len(lst) == 3 and isinstance(lst[0], str) and isinstance(lst[1], str) and isinstance(lst[2], int):
             return Car(data[0], data[1], int(data[2]))
-        else:
-            return None
-
+        raise ValueError("Создание невозможно: значение атрибута data некорректно")
 
 # Задание 7. Класс «Игровой инвентарь»
 # Создай класс Inventory, представляющий инвентарь игрока.
@@ -678,7 +676,7 @@ class StudyGroup:
     def remove_student(self, name: str) -> bool:
         # удалить ученика по имени
         for student in self.students:
-            if student['name'].lower() == name.lower():
+            if student.name.lower() == name.lower():
                 self.students.remove(student)
                 return True
         return False

@@ -96,7 +96,7 @@ class RealString:
         elif isinstance(other, str):
             return len(self.s) == len(other)
         else:
-            return None
+            raise TypeError(f"Тип атрибута {type(other)} не поддерживается")
 
 print(RealString("123") == "1231") # False
 print(RealString("123") == "122") # True
@@ -166,7 +166,7 @@ class Person:
         if len(lst) == 3 and isinstance(lst[0], str) and isinstance(lst[1], int) and isinstance(lst[2], str) :
             return Person(lst[0], int(lst[1]), lst[2])
         else:
-            return None
+            raise ValueError("Создание невозможно: значение атрибута data некорректно")
 
 person = Person("Igor", 10, "Male")
 print(Person.is_adult(person))  # False

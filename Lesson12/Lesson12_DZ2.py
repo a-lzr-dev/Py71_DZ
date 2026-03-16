@@ -65,18 +65,18 @@ class Matrix:
     @classmethod
     def identity_matrix(cls, m: int, n: int) -> Matrix | None:
         # Создает единичную матрицу размером m, n (на главной диагонали стоят единицы, а все остальные элементы равны нулю)
-        if type(m) != int:
+        if not isinstance(m, int):
             raise TypeError(f"Тип атрибута m ({type(m)}) не является числом")
-        if type(n) != int:
+        if not isinstance(n, int):
             raise TypeError(f"Тип атрибута n ({type(n)}) не является числом")
         return Matrix([[1 if i == j else 0 for j in range(n)] for i in range(m)])
 
     @classmethod
     def zero_matrix(cls, m: int, n: int) -> Matrix:
         # Создает нулевую матрицу размером m, n (все элементы которой равны нулю)
-        if type(m) != int:
+        if not isinstance(m, int):
             raise TypeError(f"Тип атрибута m ({type(m)}) не является числом")
-        if type(n) != int:
+        if not isinstance(n, int):
             raise TypeError(f"Тип атрибута n ({type(n)}) не является числом")
         return Matrix([[0 for _ in range(n)] for _ in range(m)])
 
