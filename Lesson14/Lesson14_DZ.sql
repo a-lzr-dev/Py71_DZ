@@ -1,0 +1,39 @@
+CREATE DATABASE IF NOT EXISTS lesson14;
+USE lesson14;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(64) UNIQUE,
+    password VARCHAR(32) UNIQUE,
+    email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS sellers (
+    id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    company VARCHAR(64) UNIQUE,
+    phone VARCHAR(32) NULL
+);
+
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    seller_id INTEGER UNSIGNED NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    cost INTEGER NOT NULL CHECK (cost >= 0),
+    count INTEGER NOT NULL CHECK (count >= 0),
+    INDEX idx_seller_id (seller_id),
+    CONSTRAINT fk_products_seller FOREIGN KEY (seller_id)
+        REFERENCES sellers(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INTEGER UNSIGNED NOT NULL,
+    product_id INTEGER UNSIGNED NOT NULL,
+    count INTEGER NOT NULL CHECK (count >= 0),
+    INDEX idx_user_id (user_id),
+    INDEX idx_product_id (product_id),
+    CONSTRAINT fk_orders_user FOREIGN KEY (user_id)
+        REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_orders_product FOREIGN KEY (product_id)
+        REFERENCES products(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
