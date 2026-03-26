@@ -3,11 +3,11 @@ from ..config.database import session
 from ..models import User, Order, Product
 
 class InsufficientProductError(Exception):
-    """Товара нет в нужном количестве."""
+    # недостаточно товара для осуществления покупки.
     pass
 
 class InsufficientPointsError(Exception):
-    """Недостаточно баллов для покупки."""
+    # недостаточно поинтов для осуществления покупки.
     pass
 
 class OrderRepository(BaseRepository):
