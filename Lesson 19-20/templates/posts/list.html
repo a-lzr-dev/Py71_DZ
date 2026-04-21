@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex flex-wrap gap-3">
+    {% for post in posts %}
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.updated_at.strftime('%A %d %B %Y') }}</h6>
+            <p class="card-text">
+                {{ post.content[:80] }}...
+            </p>
+            <a href="/posts/{{ post.id }}" class="card-link">View</a>
+            <a href="/posts/edit/{{ post.id }}" class="card-link">Edit</a>
+            <a href="/posts/delete/{{ post.id }}" class="card-link">Delete</a>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
