@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="d-flex flex-wrap gap-3">
+        {% for table in object_list %}
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Столик № {{ table.number }}</h5>
+<!--                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ note.user.username }}</h6>-->
+<!--                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ note.updated_at | date:'l j M. Y H:i' }}</h6>-->
+                    <p class="card-text">
+                        Кол-во мест: {{ table.seats }}
+                    </p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'reservation-create' table_id=table.id %}" class="card-link">Забронировать</a>
+                    {% else %}
+                        <a href="{% url 'accounting-login' %}" class="card-link">Войдите, чтобы забронировать</a>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <div class="mt-5 mx-auto">
+            {% include 'paginator.html' with page=page_obj %}
+        </div>
+    {% endif %}
+
+{% endblock %}

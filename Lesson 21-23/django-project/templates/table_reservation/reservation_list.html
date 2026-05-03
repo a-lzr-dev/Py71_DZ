@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="d-flex flex-wrap gap-3">
+        {% for reservation in object_list %}
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Бронь столика № {{ reservation.table.number }}</h5>
+                    <p class="card-text">
+                        Кол-во мест: {{ reservation.table.seats }}<br>
+                        Дата: {{ reservation.date | date:'l j M' }}<br>
+                        Период: c {{ reservation.hour_start | stringformat:"02d" }}:00 по {{ reservation.hour_end | stringformat:"02d" }}:00
+                    </p>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Регистрация: {{ reservation.user.username }}</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ reservation.created_at | date:'l j M. Y H:i' }}</h6>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <div class="mt-5 mx-auto">
+            {% include 'paginator.html' with page=page_obj %}
+        </div>
+    {% endif %}
+
+{% endblock %}
