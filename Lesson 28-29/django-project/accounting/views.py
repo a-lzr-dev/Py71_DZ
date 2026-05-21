@@ -29,19 +29,3 @@ def register_user_view(request):
             return redirect(resolve_url("account-login"))
 
     return render(request, "accounting/register.html", {"form": form})
-
-class UserRegistrationView(CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({
-                "message": "Пользователь успешно создан",
-                "username": user.username,
-                "email": user.email
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

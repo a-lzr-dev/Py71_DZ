@@ -23,7 +23,7 @@ class UserRegistrationView(CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListView(ListAPIView):
-    # Просмотр всех пользователей (только для администраторов): GET /api/users/
+    # Просмотр всех пользователей (только для администраторов): GET /api/users/list/
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAdminUser]
