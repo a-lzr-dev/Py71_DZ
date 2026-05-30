@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+    {{ request.session.read_notes }}
+
+Простое приложение для личных заметок
+
+{% endblock %}

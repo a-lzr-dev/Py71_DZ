@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block content %}
+
+    <div class="w-100">
+        <form method="get" action="{% url 'notes:list' %}" class="mb-4">
+            {{ search_form | crispy }}
+            <button type="submit" class="btn btn-primary">Найти</button>
+        </form>
+    </div>
+
+    <div class="d-flex flex-wrap gap-3">
+        {% for note in object_list %}
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ note.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ note.user.username }}</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ note.updated_at | naturaltime }}</h6>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        {% for tag in note.tags.all %}
+                            <div class="badge text-bg-primary">{{ tag }}</div>
+                        {% endfor %}
+                    </div>
+                    <p class="card-text">
+                        {{ note.short_content | safe | truncatewords:20 }}
+                    </p>
+                    <a href="{% url 'notes:detail' note_id=note.id %}" class="card-link">Посмотреть</a>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <div class="mt-5 mx-auto">
+            {% include 'paginator.html' with page=page_obj %}
+        </div>
+    {% endif %}
+
+{% endblock %}
