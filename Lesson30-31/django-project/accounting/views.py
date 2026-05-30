@@ -1,15 +1,11 @@
-from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect, resolve_url
-from django.contrib.auth.views import LoginView, PasswordResetDoneView, PasswordResetConfirmView
+from django.contrib.auth.views import LoginView
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.views import View
 
 from .forms import RegisterForm, PasswordResetRequestForm
 from .models import User
@@ -17,13 +13,6 @@ from .models import User
 
 class CustomLoginView(LoginView):
     template_name = "accounting/login.html"
-
-#class CustomPasswordResetDoneView(PasswordResetDoneView):
-#    template_name = "accounting/password_reset_done.html"
-
-#class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-#    template_name = "accounting/password_reset_confirm.html"
-
 
 @login_not_required
 def register_user_view(request):
