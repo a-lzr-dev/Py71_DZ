@@ -12,6 +12,7 @@ from notes.forms import CreateNoteForm, CommentForm, NotesSearchForm, NoteReacti
 from notes.models import Note, Comment, NoteReaction
 from notes.services import set_note_reaction
 
+session_key = "read_notes"
 
 def home_view(request):
     return render(request, "index.html")
@@ -131,7 +132,6 @@ def note_detail_view(request, note_id: int):
     )
 
     # ============= Просмотренные =================
-    session_key = "read_notes"
     if not request.session.get(session_key):
         request.session[session_key] = []
 
@@ -153,6 +153,23 @@ def note_detail_view(request, note_id: int):
             "reactions_stats": reaction_stats,
         },
     )
+
+# --------------------------------------- HISTORY NOTE ---------------------------------------
+
+def history_view(request):
+    # возвращает просмотренные заметки
+    history_ids = request.session.get(session_key, [])
+    notes = []
+    for note_id in history_ids:
+        try:
+            note = Note.objects.get(pk=note_id)
+            notes.append(note)
+        except Note.DoesNotExist:
+            continue
+
+    notes.reverse() # сначала последние просмотренные
+
+    return render(request, 'posts/history.html', {'history_notes': notes})
 
 
 # --------------------------------------- COMMENTS ---------------------------------------
