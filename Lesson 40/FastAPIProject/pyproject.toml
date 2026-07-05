@@ -1,0 +1,15 @@
+[project]
+name = "fastapiproject"
+version = "0.1.0"
+description = "Events API"
+requires-python = ">=3.14"
+dependencies = [
+    "aiosqlite>=0.22.1",
+    "alembic>=1.18.5",
+    "bcrypt>=5.0.0",
+    "faker>=40.28.1",
+    "fastapi[standard]>=0.138.0",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.2",
+    "sqlalchemy>=2.0.51",
+]
