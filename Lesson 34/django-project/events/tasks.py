@@ -84,7 +84,8 @@ def send_notifies_by_scheduler():
             continue
 
         events = Event.objects.filter(
-            meeting_time__date=event_start.date()
+            event_time__gte=event_start.date() - timedelta(minutes=30),
+            event_time__lte=event_start.date() + timedelta(minutes=30)
         )
         for event in events:
             for user in event.users.all():

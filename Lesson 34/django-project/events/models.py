@@ -11,6 +11,8 @@ CATEGORY_CHOICES = [
     ('other', 'Другое'),
 ]
 
+
+
 class Event(models.Model):
     name = models.CharField(max_length=200, verbose_name="Название события")
     description = models.TextField(blank=True, verbose_name="Описание события")
